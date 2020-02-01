@@ -12,9 +12,40 @@ html {
 /*     background-color: #b55fe3; */
 }
 
-#main_title_header {
-    display: block;
-    text-align: center;
-    font-size: 4em;
-    margin: 0.3em 0 0 0;
+/* Classes */
+
+.survey {
+  display: block;
+  margin: 1em 0 0 0;
 }
+
+.survey_title {
+  text-align: center;
+  font-size: 2em;
+  margin: 0 0 0.5em; 0;
+}
+
+.survey_ratings {
+  text-align: center;
+}
+
+.survey_ratings li {
+  display: inline;
+  font-size: 1.5em;
+  margin: 0 1em;
+}
+
+.survey_form {
+  display: block;
+  margin: 0 auto;
+}
+
+/* IDs */
+
+#main_title_header {
+  display: block;
+  text-align: center;
+  font-size: 4em;
+  margin: 0.5em 0 1em 0;
+}
+
