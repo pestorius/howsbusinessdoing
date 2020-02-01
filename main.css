@@ -9,10 +9,12 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 /* Begin site styles below */
 
 html {
-    background-color: pink;
+/*     background-color: #b55fe3; */
 }
 
 #main_title_header {
     display: block;
     text-align: center;
+    font-size: 4em;
+    margin: 0.3em 0 0 0;
 }
