@@ -9,10 +9,14 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 /* Begin site styles below */
 
 html {
-/*     background-color: #b55fe3; */
+    background-color: #d9d8d7;
 }
 
-div {
+body {
+  
+}
+
+.graph {
   display: block;
   height: 300px;
   width: 90%;
@@ -39,12 +43,21 @@ div {
 }
 
 .survey_ratings li {
+  background: #bfbdbb;
+  border-radius: 100%;
+  cursor: pointer;
+  padding: 5px 12px;
   display: inline;
   font-size: 1.5em;
   margin: 0 1em;
 }
 
+.survey_ratings li:hover {
+  background: grey;
+}
+
 .survey_form {
+  
   display: block;
   margin: 0 auto;
 }

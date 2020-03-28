@@ -49,7 +49,7 @@
                 <option value="Some">Some</option>
                 <option value="Javascript">Javascript</option>
             </select>
-            <button id="submit_button" type="button">Submit</button>
+            <button id="submit_button" type="button" onclick="submitData()">Submit</button>
         </section>
         <section>
             <div>
@@ -63,24 +63,8 @@
         <!-- TODO: Add SDKs for Firebase products that you want to use
              https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
-        <script src="/__/firebase/7.12.0/firebase-firestore.js"></script>
-
-        <script>
-          // Your web app's Firebase configuration
-          var firebaseConfig = {
-            apiKey: "AIzaSyDVNjIbMmbypslaxmNyfL1L-JV4-F59_GI",
-            authDomain: "hows-business.firebaseapp.com",
-            databaseURL: "https://hows-business.firebaseio.com",
-            projectId: "hows-business",
-            storageBucket: "hows-business.appspot.com",
-            messagingSenderId: "1036901774461",
-            appId: "1:1036901774461:web:419df3d65faa4e37ec2d14",
-            measurementId: "G-736BDT2FXK"
-          };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-          firebase.analytics();
-        </script>
+        <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+        <script src="./main.js"></script>
 
     </body>
 </html>
