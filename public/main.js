@@ -98,6 +98,8 @@ function submitData() {
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
+                document.getElementById("survey_form").value = "Optional";
+                location.reload();
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
