@@ -64,16 +64,42 @@ for (i = 0; i < rating_numbers.length; i++) {
     });
 }
 
-// draw bar chart that shows quantity of each rating for a day
-var data = [
-  {
-    x: ['giraffes', 'orangutans', 'monkeys'],
-    y: [20, 14, 23],
-    type: 'bar'
-  }
-];
+// grab all data from firestore and plot graphs
+data_list = []
+db.collection("qa_data").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        //console.log(doc.id, " => ", doc.data());
+        data_list.push(doc.data());
+    });
+    console.log(data_list);
 
-Plotly.newPlot('bar_plot', data);
+    // bar plot
+    bar_x = ['1', '2', '3', '4', '5'];
+    bar_y = [0, 0, 0, 0, 0];
+    data_list.forEach((element) => {
+        if (element.today_rating == 1) {
+            bar_y[0]++;
+        } else if (element.today_rating == 2) {
+            bar_y[1]++;
+        } else if (element.today_rating == 3) {
+            bar_y[2]++;
+        } else if (element.today_rating == 4) {
+            bar_y[3]++;
+        } else if (element.today_rating == 5) {
+            bar_y[4]++;
+        }
+    });
+    var data = [
+        {
+            x: bar_x,
+            y: bar_y,
+            type: 'bar'
+        }
+    ];
+
+    Plotly.newPlot('bar_plot', data);
+});
 
 // send submitted data to firestore
 function submitData() {
