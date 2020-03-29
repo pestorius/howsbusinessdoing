@@ -16,6 +16,8 @@ body {
   
 }
 
+/* Classes */
+
 .graph {
   display: block;
   height: 300px;
@@ -25,17 +27,9 @@ body {
   margin: 2em auto 0 auto;
 }
 
-/* Classes */
-
 .survey {
   display: block;
   margin: 1em 0 0 0;
-}
-
-.survey_title {
-  text-align: center;
-  font-size: 2em;
-  margin: 0 0 0.5em; 0;
 }
 
 .survey_ratings {
@@ -52,13 +46,10 @@ body {
   margin: 0 1em;
 }
 
-.survey_ratings li:hover {
-  background: grey;
-}
-
-#survey_form {
-  display: block;
-  margin: 0 auto;
+.survey_title {
+  text-align: center;
+  font-size: 2em;
+  margin: 0 0 0.5em; 0;
 }
 
 /* IDs */
@@ -75,3 +66,7 @@ body {
   margin: 2em auto;
 }
 
+#survey_form {
+  display: block;
+  margin: 0 auto;
+}
