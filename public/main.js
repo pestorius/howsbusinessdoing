@@ -16,6 +16,54 @@ var firebaseConfig = {
           firebase.analytics();
           var db = firebase.firestore();
 
+// colors
+grey = "rgb(128, 128, 128)";
+light_grey = "rgb(191, 189, 187)";
+
+// select number on click
+rating_numbers = document.querySelectorAll(".survey_ratings li");
+for (i = 0; i < rating_numbers.length; i++) {
+    rating_numbers[i].pseudo_selected = 0;
+    rating_numbers[i].pseudo_position = i;
+
+    rating_numbers[i].addEventListener('click', function() {
+        if (this.pseudo_selected == 0) {
+            if (this.pseudo_position < 5) {
+                for (var j = 0; j < 5; j++) {
+                    rating_numbers[j].pseudo_selected = 0;
+                    rating_numbers[j].style.backgroundColor = light_grey;
+                }
+            } else if (this.pseudo_position > 4 && this.pseudo_position < 10) {
+               for (var j = 5; j < 10; j++) {
+                   rating_numbers[j].pseudo_selected = 0;
+                   rating_numbers[j].style.backgroundColor = light_grey;
+               }
+            } else if (this.pseudo_position > 9 && this.pseudo_position < 15) {
+                for (var j = 10; j < 15; j++) {
+                    rating_numbers[j].pseudo_selected = 0;
+                    rating_numbers[j].style.backgroundColor = light_grey;
+                }
+            }
+            this.style.backgroundColor = grey;
+            this.pseudo_selected = 1;
+        }
+        else if (this.pseudo_selected == 1) {
+            this.pseudo_selected = 0;
+            this.style.backgroundColor = light_grey;
+        }
+    }, false);
+
+    rating_numbers[i].addEventListener('mouseover', function() {
+        this.style.backgroundColor = grey;
+    });
+
+    rating_numbers[i].addEventListener('mouseout', function() {
+        if (this.pseudo_selected == 0) {
+            this.style.backgroundColor = light_grey;
+        }
+    });
+}
+
 function submitData() {
     console.log("Submitting data...")
     db.collection("users").add({
