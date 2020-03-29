@@ -56,8 +56,7 @@ body {
   background: grey;
 }
 
-.survey_form {
-  
+#survey_form {
   display: block;
   margin: 0 auto;
 }

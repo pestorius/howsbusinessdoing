@@ -64,18 +64,46 @@ for (i = 0; i < rating_numbers.length; i++) {
     });
 }
 
+// send submitted data to firestore
 function submitData() {
-    console.log("Submitting data...")
-    db.collection("users").add({
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
+    // getting the submitted data
+    today_rating = 0;
+    week_rating = 0;
+    month_rating = 0;
+    for (var i = 0; i < 5; i++) {
+        if (rating_numbers[i].style.backgroundColor == "rgb(128, 128, 128)") {
+            today_rating = parseInt(rating_numbers[i].innerHTML);
+        }
+    }
+    for (var i = 5; i < 10; i++) {
+        if (rating_numbers[i].style.backgroundColor == "rgb(128, 128, 128)") {
+            week_rating = parseInt(rating_numbers[i].innerHTML);
+        }
+    }
+    for (var i = 10; i < 15; i++) {
+        if (rating_numbers[i].style.backgroundColor == "rgb(128, 128, 128)") {
+            month_rating = parseInt(rating_numbers[i].innerHTML);
+        }
+    }
+
+    // uploading data
+    if (today_rating | week_rating | month_rating != 0) {
+        console.log("Submitting data...")
+        if (document.URL == "http://localhost:5000/") {
+            db.collection("qa_data").add({
+                today_rating: today_rating,
+                week_rating: week_rating,
+                month_rating: month_rating,
+                area_of_business: document.getElementById("survey_form").value
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+        }
+    }
+
  }
 
