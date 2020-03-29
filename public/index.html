@@ -6,7 +6,7 @@
         <title>How's Business?</title>
         <link rel="stylesheet" href="./main.css" />
         <link rel="icon" href="assets/tab_title_icon.png">
-        <script src="plotly-latest.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
         <header>
@@ -54,9 +54,7 @@
             <button id="submit_button" type="button" onclick="submitData()">Submit</button>
         </section>
         <section>
-            <div class="graph">
-                <p>Would want a graph to be here. Displaying counts for now</p>
-            </div>
+            <div class="graph" id="bar_plot"></div>
         </section>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->

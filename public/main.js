@@ -64,6 +64,17 @@ for (i = 0; i < rating_numbers.length; i++) {
     });
 }
 
+// draw bar chart that shows quantity of each rating for a day
+var data = [
+  {
+    x: ['giraffes', 'orangutans', 'monkeys'],
+    y: [20, 14, 23],
+    type: 'bar'
+  }
+];
+
+Plotly.newPlot('bar_plot', data);
+
 // send submitted data to firestore
 function submitData() {
     // getting the submitted data
