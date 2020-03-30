@@ -98,7 +98,15 @@ db.collection("qa_data").get().then(function(querySnapshot) {
         }
     ];
 
-    Plotly.newPlot('bar_plot', data);
+    var layout = {
+        title: 'Ratings Summary for the Day',
+        xaxis: {title: 'Ratings'},
+        yaxis: {title: 'Count'}
+    };
+
+    var config = {responsive: true};
+
+    Plotly.newPlot('bar_plot', data, layout, config);
 });
 
 // send submitted data to firestore
