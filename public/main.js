@@ -149,6 +149,21 @@ function submitData() {
             .catch(function(error) {
                 console.error("Error adding document: ", error);
             });
+        } else {
+            db.collection("prod_data").add({
+                today_rating: today_rating,
+                week_rating: week_rating,
+                month_rating: month_rating,
+                area_of_business: document.getElementById("survey_form").value
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                document.getElementById("survey_form").value = "Optional";
+                location.reload();
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
         }
     }
 
