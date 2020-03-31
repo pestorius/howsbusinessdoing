@@ -109,7 +109,7 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     Plotly.newPlot('bar_plot', data, layout, config);
 });
 
-// send submitted data to firestore
+// setup data to upload to db
 function submitData() {
     // getting the submitted data
     today_rating = 0;
@@ -135,37 +135,29 @@ function submitData() {
     if (today_rating | week_rating | month_rating != 0) {
         console.log("Submitting data...")
         if (document.URL == "http://localhost:5000/") {
-            db.collection("qa_data").add({
-                today_rating: today_rating,
-                week_rating: week_rating,
-                month_rating: month_rating,
-                area_of_business: document.getElementById("survey_form").value
-            })
-            .then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-                document.getElementById("survey_form").value = "Optional";
-                location.reload();
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
-        } else {
-            db.collection("prod_data").add({
-                today_rating: today_rating,
-                week_rating: week_rating,
-                month_rating: month_rating,
-                area_of_business: document.getElementById("survey_form").value
-            })
-            .then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-                document.getElementById("survey_form").value = "Optional";
-                location.reload();
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
+            upload_data("qa_data");
+        } else if (document.URL == "https://hows-business.firebaseapp.com/"){
+            upload_data("prod_data");
         }
     }
+ }
 
+// function to send data to db
+ function upload_data(collection) {
+    db.collection(collection).add({
+        today_rating: today_rating,
+        week_rating: week_rating,
+        month_rating: month_rating,
+        area_of_business: document.getElementById("survey_form").value,
+        date: `${Date()}`.substr(4,11)
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        document.getElementById("survey_form").value = "Optional";
+        location.reload();
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
  }
 
