@@ -78,16 +78,18 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
     data_list.forEach((element) => {
-        if (element.today_rating == 1) {
-            bar_y[0]++;
-        } else if (element.today_rating == 2) {
-            bar_y[1]++;
-        } else if (element.today_rating == 3) {
-            bar_y[2]++;
-        } else if (element.today_rating == 4) {
-            bar_y[3]++;
-        } else if (element.today_rating == 5) {
-            bar_y[4]++;
+        if (element.date == (`${Date()}`.substr(4,11))) {
+            if (element.today_rating == 1) {
+                bar_y[0]++;
+            } else if (element.today_rating == 2) {
+                bar_y[1]++;
+            } else if (element.today_rating == 3) {
+                bar_y[2]++;
+            } else if (element.today_rating == 4) {
+                bar_y[3]++;
+            } else if (element.today_rating == 5) {
+                bar_y[4]++;
+            }
         }
     });
     var data = [
