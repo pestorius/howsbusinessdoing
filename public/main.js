@@ -117,6 +117,52 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     // bar plot week
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
+    var dates_for_this_week = [];
+    for (var i = 1; i < 8; i++) {
+        dates_for_this_week.push(`${getDateWithinWeek(new Date(), i)}`.substr(4,11));
+    }
+
+    data_list.forEach((element) => {
+        if (dates_for_this_week.indexOf(element.date) > -1) {
+            if (element.week_rating == 1) {
+                bar_y[0]++;
+            } else if (element.week_rating == 2) {
+                bar_y[1]++;
+            } else if (element.week_rating == 3) {
+                bar_y[2]++;
+            } else if (element.week_rating == 4) {
+                bar_y[3]++;
+            } else if (element.week_rating == 5) {
+                bar_y[4]++;
+            }
+        }
+    });
+
+    var data = [
+        {
+            x: bar_x,
+            y: bar_y,
+            type: 'bar',
+            width: [0.7, 0.7, 0.7, 0.7, 0.7]
+        }
+    ];
+
+    var layout = {
+        title: 'Ratings Summary for the Week',
+        xaxis: {
+            title: 'Ratings',
+            tickmode: 'linear'
+        },
+        yaxis: {title: 'Count'}
+    };
+
+    var config = {responsive: true};
+
+    Plotly.newPlot('bar_plot_week', data, layout, config);
+
+    // bar plot month
+    bar_x = ['1', '2', '3', '4', '5'];
+    bar_y = [0, 0, 0, 0, 0];
     data_list.forEach((element) => {
         if (element.date.substr(0,4) + element.date.substr(7,4) == (`${Date()}`.substr(4,3) + `${Date()}`.substr(10,5))) {
             if (element.month_rating == 1) {
@@ -154,6 +200,14 @@ db.collection("qa_data").get().then(function(querySnapshot) {
 
     Plotly.newPlot('bar_plot_month', data, layout, config);
 });
+
+// get a specific date relative to the current week
+function getDateWithinWeek(d, offset) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:offset); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
 
 // setup data to upload to db
 function submitData() {
