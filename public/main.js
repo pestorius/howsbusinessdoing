@@ -74,7 +74,7 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     });
     console.log(data_list);
 
-    // bar plot
+    // bar plot day
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
     data_list.forEach((element) => {
@@ -113,6 +113,46 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     var config = {responsive: true};
 
     Plotly.newPlot('bar_plot_day', data, layout, config);
+
+    // bar plot week
+    bar_x = ['1', '2', '3', '4', '5'];
+    bar_y = [0, 0, 0, 0, 0];
+    data_list.forEach((element) => {
+        if (element.date.substr(0,4) + element.date.substr(7,4) == (`${Date()}`.substr(4,3) + `${Date()}`.substr(10,5))) {
+            if (element.month_rating == 1) {
+                bar_y[0]++;
+            } else if (element.month_rating == 2) {
+                bar_y[1]++;
+            } else if (element.month_rating == 3) {
+                bar_y[2]++;
+            } else if (element.month_rating == 4) {
+                bar_y[3]++;
+            } else if (element.month_rating == 5) {
+                bar_y[4]++;
+            }
+        }
+    });
+    var data = [
+        {
+            x: bar_x,
+            y: bar_y,
+            type: 'bar',
+            width: [0.7, 0.7, 0.7, 0.7, 0.7]
+        }
+    ];
+
+    var layout = {
+        title: 'Ratings Summary for the Month',
+        xaxis: {
+            title: 'Ratings',
+            tickmode: 'linear'
+        },
+        yaxis: {title: 'Count'}
+    };
+
+    var config = {responsive: true};
+
+    Plotly.newPlot('bar_plot_month', data, layout, config);
 });
 
 // setup data to upload to db
