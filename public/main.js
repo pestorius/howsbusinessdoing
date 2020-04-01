@@ -96,19 +96,23 @@ db.collection("qa_data").get().then(function(querySnapshot) {
         {
             x: bar_x,
             y: bar_y,
-            type: 'bar'
+            type: 'bar',
+            width: [0.7, 0.7, 0.7, 0.7, 0.7]
         }
     ];
 
     var layout = {
         title: 'Ratings Summary for the Day',
-        xaxis: {title: 'Ratings'},
+        xaxis: {
+            title: 'Ratings',
+            tickmode: 'linear'
+        },
         yaxis: {title: 'Count'}
     };
 
     var config = {responsive: true};
 
-    Plotly.newPlot('bar_plot', data, layout, config);
+    Plotly.newPlot('bar_plot_day', data, layout, config);
 });
 
 // setup data to upload to db

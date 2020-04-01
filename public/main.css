@@ -19,12 +19,14 @@ body {
 /* Classes */
 
 .graph {
-  display: block;
+  flex: 0 1 auto;
+  align-content: center;
   height: 300px;
-  width: 90%;
+  width: 30%;
+  min-width: 450px;
   border-style: solid;
   border-width: 1px;
-  margin: 2em auto 0 auto;
+  margin: 2em 1em 2em 1em;
 }
 
 .survey {
@@ -76,4 +78,10 @@ body {
 #survey_form {
   display: block;
   margin: 0 auto;
+}
+
+#time_plot_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
