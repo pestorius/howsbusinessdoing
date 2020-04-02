@@ -102,12 +102,15 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     ];
 
     var layout = {
-        title: 'Ratings Summary for the Day',
+        title: 'Ratings Summary for Today',
         xaxis: {
             title: 'Ratings',
             tickmode: 'linear'
         },
-        yaxis: {title: 'Count'}
+        yaxis: {
+            title: 'Count',
+            rangemode: 'tozero'
+        }
     };
 
     var config = {responsive: true};
@@ -153,7 +156,10 @@ db.collection("qa_data").get().then(function(querySnapshot) {
             title: 'Ratings',
             tickmode: 'linear'
         },
-        yaxis: {title: 'Count'}
+        yaxis: {
+            title: 'Count',
+            rangemode: 'tozero'
+        }
     };
 
     var config = {responsive: true};
@@ -193,7 +199,10 @@ db.collection("qa_data").get().then(function(querySnapshot) {
             title: 'Ratings',
             tickmode: 'linear'
         },
-        yaxis: {title: 'Count'}
+        yaxis: {
+            title: 'Count',
+            rangemode: 'tozero'
+        }
     };
 
     var config = {responsive: true};
