@@ -66,7 +66,14 @@ for (i = 0; i < rating_numbers.length; i++) {
 
 // grab all data from firestore and plot graphs
 data_list = []
-db.collection("qa_data").get().then(function(querySnapshot) {
+var collection = "";
+// grab from collection accordingly
+if (document.URL == "http://localhost:5000/") {
+    collection = "qa_data";
+} else if (document.URL == "https://hows-business.firebaseapp.com/"){
+    collection = "prod_data";
+}
+db.collection(collection).get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         //console.log(doc.id, " => ", doc.data());
