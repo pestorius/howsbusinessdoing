@@ -74,11 +74,13 @@ db.collection("qa_data").get().then(function(querySnapshot) {
     });
     console.log(data_list);
 
-    // bar plot day
+    // bar plot day (Actually gets yesterday's data)
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
     data_list.forEach((element) => {
-        if (element.date == (`${Date()}`.substr(4,11))) {
+        if (element.date == (`${date}`.substr(4,11))) {
             if (element.today_rating == 1) {
                 bar_y[0]++;
             } else if (element.today_rating == 2) {
