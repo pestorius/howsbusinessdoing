@@ -111,7 +111,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     ];
 
     var layout = {
-        title: 'Ratings Summary for Today',
+        title: 'Yesterday\'s Ratings',
         xaxis: {
             title: 'Ratings',
             tickmode: 'linear'
@@ -160,7 +160,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     ];
 
     var layout = {
-        title: 'Ratings Summary for the Week',
+        title: 'Last Week\'s Ratings',
         xaxis: {
             title: 'Ratings',
             tickmode: 'linear'
@@ -203,7 +203,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     ];
 
     var layout = {
-        title: 'Ratings Summary for the Month',
+        title: 'Last Month\'s Ratings',
         xaxis: {
             title: 'Ratings',
             tickmode: 'linear'
