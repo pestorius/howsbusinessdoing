@@ -81,6 +81,23 @@ db.collection(collection).get().then(function(querySnapshot) {
     });
     console.log(data_list);
 
+    // calculate average ratings
+    // TODO: get only today/this week/this month's ratings
+    day_rating_sum = 0;
+    week_rating_sum = 0;
+    month_rating_sum = 0;
+    data_list.forEach((element) => {
+        day_rating_sum += element.today_rating;
+        week_rating_sum += element.week_rating;
+        month_rating_sum += element.month_rating;
+    })
+    day_rating_average = Math.round(day_rating_sum/data_list.length * 10) / 10;
+    week_rating_average = Math.round(week_rating_sum/data_list.length * 10) / 10;
+    month_rating_average = Math.round(month_rating_sum/data_list.length * 10) / 10;
+    document.getElementById("today_average_number").innerHTML = day_rating_average;
+    document.getElementById("week_average_number").innerHTML = week_rating_average;
+    document.getElementById("month_average_number").innerHTML = month_rating_average;
+
     // bar plot day (Actually gets yesterday's data)
     var date = new Date();
     date.setDate(date.getDate() - 1);
@@ -127,6 +144,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     Plotly.newPlot('bar_plot_day', data, layout, config);
 
     // bar plot week
+    // TODO: this needs to get last week's ratings
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
     var dates_for_this_week = [];
@@ -176,6 +194,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     Plotly.newPlot('bar_plot_week', data, layout, config);
 
     // bar plot month
+    // TODO: this needs to get last months ratings
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
     data_list.forEach((element) => {

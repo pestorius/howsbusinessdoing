@@ -81,7 +81,8 @@ body {
 
 #average_ratings_container div {
   flex: 0 1 auto;
-  margin: 1em;
+  margin: 1em 1.6em;
+  width: 30%;
 }
 
 #average_ratings_container p {
