@@ -224,11 +224,14 @@ db.collection(collection).get().then(function(querySnapshot) {
     Plotly.newPlot('bar_plot_week', data, layout, config);
 
     // bar plot month
-    // TODO: this needs to get last months ratings
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
+    var date_last_month = new Date();
+    date_last_month.setMonth(date_last_month.getMonth() - 1)
+    date_last_month = `${date_last_month}`.substr(4,3) + `${date_last_month}`.substr(10,5)
+    console.log(date_last_month);
     data_list.forEach((element) => {
-        if (element.date.substr(0,4) + element.date.substr(7,4) == (`${Date()}`.substr(4,3) + `${Date()}`.substr(10,5))) {
+        if (element.date.substr(0,4) + element.date.substr(7,4) == date_last_month) {
             if (element.month_rating == 1) {
                 bar_y[0]++;
             } else if (element.month_rating == 2) {
