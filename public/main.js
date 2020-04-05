@@ -86,14 +86,24 @@ db.collection(collection).get().then(function(querySnapshot) {
     day_rating_sum = 0;
     week_rating_sum = 0;
     month_rating_sum = 0;
+    day_no_rating_count = 0;
+    week_no_rating_count = 0;
+    month_no_rating_count = 0;
     data_list.forEach((element) => {
         day_rating_sum += element.today_rating;
         week_rating_sum += element.week_rating;
         month_rating_sum += element.month_rating;
+        if (element.today_rating == '0')
+            day_no_rating_count += 1;
+        if (element.week_rating == '0')
+            week_no_rating_count += 1;
+        if (element.month_rating == '0')
+            month_no_rating_count += 1;
     })
-    day_rating_average = Math.round(day_rating_sum/data_list.length * 10) / 10;
-    week_rating_average = Math.round(week_rating_sum/data_list.length * 10) / 10;
-    month_rating_average = Math.round(month_rating_sum/data_list.length * 10) / 10;
+    // calculate average (does not count occurences where rating is 0
+    day_rating_average = Math.round(day_rating_sum/(data_list.length - day_no_rating_count) * 10) / 10;
+    week_rating_average = Math.round(week_rating_sum/(data_list.length - week_no_rating_count) * 10) / 10;
+    month_rating_average = Math.round(month_rating_sum/(data_list.length - month_no_rating_count) * 10) / 10;
     document.getElementById("today_average_number").innerHTML = day_rating_average;
     document.getElementById("week_average_number").innerHTML = week_rating_average;
     document.getElementById("month_average_number").innerHTML = month_rating_average;
