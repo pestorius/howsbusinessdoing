@@ -89,18 +89,40 @@ db.collection(collection).get().then(function(querySnapshot) {
     day_no_rating_count = 0;
     week_no_rating_count = 0;
     month_no_rating_count = 0;
+    var dates_for_this_week = [];
+    for (var i = 1; i < 8; i++) {
+        dates_for_this_week.push(`${getDateWithinWeek(new Date(), i)}`.substr(4,11));
+    }
     data_list.forEach((element) => {
-        day_rating_sum += element.today_rating;
-        week_rating_sum += element.week_rating;
-        month_rating_sum += element.month_rating;
-        if (element.today_rating == '0')
+        // if date is today
+        if (element.date == (`${Date()}`.substr(4,11))) {
+            if (element.today_rating == '0')
+                day_no_rating_count += 1;
+            else
+                day_rating_sum += element.today_rating;
+        } else {
             day_no_rating_count += 1;
-        if (element.week_rating == '0')
+        }
+        // if date is this week
+        if (dates_for_this_week.indexOf(element.date) > -1) {
+            if (element.week_rating == '0')
+                week_no_rating_count += 1;
+            else
+                week_rating_sum += element.week_rating;
+        } else {
             week_no_rating_count += 1;
-        if (element.month_rating == '0')
+        }
+        // if date is this month
+        if (element.date.substr(0,4) + element.date.substr(7,4) == (`${Date()}`.substr(4,3) + `${Date()}`.substr(10,5))) {
+            if (element.month_rating == '0')
+                month_no_rating_count += 1;
+            else
+                month_rating_sum += element.month_rating;
+        } else {
             month_no_rating_count += 1;
+        }
     })
-    // calculate average (does not count occurences where rating is 0
+    // calculate averages (does not count occurences where rating is 0
     day_rating_average = Math.round(day_rating_sum/(data_list.length - day_no_rating_count) * 10) / 10;
     week_rating_average = Math.round(week_rating_sum/(data_list.length - week_no_rating_count) * 10) / 10;
     month_rating_average = Math.round(month_rating_sum/(data_list.length - month_no_rating_count) * 10) / 10;
@@ -161,7 +183,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     for (var i = 1; i < 8; i++) {
         dates_for_this_week.push(`${getDateWithinWeek(new Date(), i)}`.substr(4,11));
     }
-
+    console.log(dates_for_this_week);
     data_list.forEach((element) => {
         if (dates_for_this_week.indexOf(element.date) > -1) {
             if (element.week_rating == 1) {
@@ -252,7 +274,7 @@ db.collection(collection).get().then(function(querySnapshot) {
 function getDateWithinWeek(d, offset) {
   d = new Date(d);
   var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6:offset); // adjust when day is sunday
+      diff = d.getDate() - day + (day == 0 ? offset-7:offset); // adjust when day is sunday
   return new Date(d.setDate(diff));
 }
 
