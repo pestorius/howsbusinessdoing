@@ -82,7 +82,6 @@ db.collection(collection).get().then(function(querySnapshot) {
     console.log(data_list);
 
     // calculate average ratings
-    // TODO: get only today/this week/this month's ratings
     day_rating_sum = 0;
     week_rating_sum = 0;
     month_rating_sum = 0;
@@ -176,11 +175,10 @@ db.collection(collection).get().then(function(querySnapshot) {
     Plotly.newPlot('bar_plot_day', data, layout, config);
 
     // bar plot week
-    // TODO: this needs to get last week's ratings
     bar_x = ['1', '2', '3', '4', '5'];
     bar_y = [0, 0, 0, 0, 0];
     var dates_for_this_week = [];
-    for (var i = 1; i < 8; i++) {
+    for (var i = -6; i < 1; i++) {
         dates_for_this_week.push(`${getDateWithinWeek(new Date(), i)}`.substr(4,11));
     }
     console.log(dates_for_this_week);
