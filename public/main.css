@@ -27,7 +27,7 @@ body {
   font-size: 1.8em;
 }
 
-.graph {
+.bar_graph {
   flex: 0 1 auto;
   align-content: center;
   height: 300px;
@@ -35,7 +35,16 @@ body {
   min-width: 450px;
   border-style: solid;
   border-width: 1px;
-  margin: 2em 1em 2em 1em;
+  margin: 2em 1em;
+}
+
+.line_graph {
+  flex: 0 1 auto;
+  height: 300px;
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  margin: 1em 3em;
 }
 
 .survey {
@@ -112,6 +121,12 @@ body {
 }
 
 #time_plot_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#average_plot_container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

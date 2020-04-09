@@ -269,7 +269,86 @@ db.collection(collection).get().then(function(querySnapshot) {
     var config = {responsive: true};
 
     Plotly.newPlot('bar_plot_month', data, layout, config);
+
+    // line plot average
+    dates_for_last_31_days_list = [];
+    dates_for_last_31_days_dict = {};
+    y_list = []
+    var today = new Date();
+    //get last 31 days daily ratings
+    for (var i = 30; i >= 0; i--) {
+        y_list.push(0);
+        dates_for_last_31_days_list.push(`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11));
+        dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)] = [];
+        dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)].push([30-i]);
+        dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)].push([]);
+    }
+    console.log(dates_for_last_31_days_list);
+    console.log(dates_for_last_31_days_dict);
+    data_list.forEach((element) => {
+        if (dates_for_last_31_days_list.indexOf(element.date) > -1) {
+            console.log(element.date);
+            dates_for_last_31_days_dict[element.date][1].push(element.today_rating);
+        }
+    })
+    console.log(dates_for_last_31_days_dict);
+    // calculate average for each day
+    for (var key in dates_for_last_31_days_dict) {
+        value_array = dates_for_last_31_days_dict[key][1];
+        if (value_array.length > 0) {
+            var count = 0;
+            var sum = 0
+            value_array.forEach((element) => {
+                if (element > 0) {
+                    count++;
+                    sum += element;
+                }
+            })
+            average = Math.round(sum/count * 10) / 10;
+            console.log(average);
+            dates_for_last_31_days_dict[key][1] = average;
+        }
+    }
+    // set up lists for plot
+    for (i = 0; i < dates_for_last_31_days_list.length; i++){
+        dates_for_last_31_days_list[i] = dates_for_last_31_days_list[i].substr(0,6);
+    }
+    x_list = dates_for_last_31_days_list;
+    for (var key in dates_for_last_31_days_dict) {
+        index = dates_for_last_31_days_dict[key][0];
+        if (dates_for_last_31_days_dict[key][1] > 0) {
+            y_list[index] = dates_for_last_31_days_dict[key][1];
+        } else {
+            y_list[index] = null;
+        }
+    }
+    console.log(y_list)
+    var trace1 = {
+      x: x_list,
+      y: y_list,
+      type: 'scatter'
+    };
+
+    var data = [trace1];
+
+    var layout = {
+        title: 'Average Rating Over A Month',
+        yaxis: {
+            range: [0, 5],
+            tickmode: 'linear',
+            title: 'Rating',
+        },
+        xaxis: {
+            title: 'Date'
+        }
+    }
+
+    var config = {responsive: true};
+
+    Plotly.newPlot('line_plot_average', data, layout, config);
 });
+
+/*****FUNCTIONS*****/
 
 // get a specific date relative to the current week
 function getDateWithinWeek(d, offset) {
