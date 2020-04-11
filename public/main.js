@@ -326,7 +326,8 @@ db.collection(collection).get().then(function(querySnapshot) {
     var trace1 = {
       x: x_list,
       y: y_list,
-      type: 'scatter'
+      type: 'scatter',
+      mode: 'lines+markers'
     };
 
     var data = [trace1];
@@ -339,7 +340,8 @@ db.collection(collection).get().then(function(querySnapshot) {
             title: 'Rating',
         },
         xaxis: {
-            title: 'Date'
+            title: 'Date',
+            tickangle: '45'
         }
     }
 
