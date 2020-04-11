@@ -16,6 +16,14 @@ body {
   
 }
 
+optgroup[label="Retail"] {
+  font-style: normal;
+}
+
+option {
+  color: black;
+}
+
 /* Classes */
 
 .average_ratings_number {
