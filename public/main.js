@@ -161,7 +161,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     var layout = {
         title: 'Yesterday\'s Ratings',
         xaxis: {
-            title: 'Ratings',
+            title: 'Rating',
             tickmode: 'linear'
         },
         yaxis: {
@@ -210,7 +210,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     var layout = {
         title: 'Last Week\'s Ratings',
         xaxis: {
-            title: 'Ratings',
+            title: 'Rating',
             tickmode: 'linear'
         },
         yaxis: {
@@ -257,7 +257,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     var layout = {
         title: 'Last Month\'s Ratings',
         xaxis: {
-            title: 'Ratings',
+            title: 'Rating',
             tickmode: 'linear'
         },
         yaxis: {
