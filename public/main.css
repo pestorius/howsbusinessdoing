@@ -62,6 +62,8 @@ option {
 
 .survey_ratings {
   text-align: center;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
 }
 
 .survey_ratings li {
