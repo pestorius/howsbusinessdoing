@@ -117,6 +117,19 @@ body {
 #submit_button {
   display: block;
   margin: 2em auto;
+  padding: 0.6em;
+  width: 8em;
+  border: 1px solid #aaa;
+  border-radius: 7px;
+  background-color: #1f77b4;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#submit_button:hover {
+  background-color: #195985;
 }
 
 #survey_form {
