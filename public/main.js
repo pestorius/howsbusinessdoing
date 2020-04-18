@@ -18,11 +18,13 @@ var firebaseConfig = {
 
 // colors
 grey = "rgb(128, 128, 128)";
-light_grey = "rgb(191, 189, 187)";
+light_grey = "rgb(207, 209, 212)";
+//light_grey = "rgb(191, 189, 187)";
 
 // select number on click
 rating_numbers = document.querySelectorAll(".survey_ratings li");
 for (i = 0; i < rating_numbers.length; i++) {
+    rating_numbers[i].style.backgroundColor = light_grey;
     rating_numbers[i].pseudo_selected = 0;
     rating_numbers[i].pseudo_position = i;
 
