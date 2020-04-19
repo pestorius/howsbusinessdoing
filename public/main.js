@@ -156,7 +156,8 @@ db.collection(collection).get().then(function(querySnapshot) {
             x: bar_x,
             y: bar_y,
             type: 'bar',
-            width: [0.7, 0.7, 0.7, 0.7, 0.7]
+            width: [0.7, 0.7, 0.7, 0.7, 0.7],
+            hovertemplate: 'Count: %{y}<extra></extra>'
         }
     ];
 
@@ -205,7 +206,8 @@ db.collection(collection).get().then(function(querySnapshot) {
             x: bar_x,
             y: bar_y,
             type: 'bar',
-            width: [0.7, 0.7, 0.7, 0.7, 0.7]
+            width: [0.7, 0.7, 0.7, 0.7, 0.7],
+            hovertemplate: 'Count: %{y}<extra></extra>'
         }
     ];
 
@@ -252,7 +254,8 @@ db.collection(collection).get().then(function(querySnapshot) {
             x: bar_x,
             y: bar_y,
             type: 'bar',
-            width: [0.7, 0.7, 0.7, 0.7, 0.7]
+            width: [0.7, 0.7, 0.7, 0.7, 0.7],
+            hovertemplate: 'Count: %{y}<extra></extra>'
         }
     ];
 
@@ -329,7 +332,8 @@ db.collection(collection).get().then(function(querySnapshot) {
       x: x_list,
       y: y_list,
       type: 'scatter',
-      mode: 'lines+markers'
+      mode: 'lines+markers',
+      hovertemplate: 'Average Rating: %{y}<extra></extra>'
     };
 
     var data = [trace1];
