@@ -333,7 +333,8 @@ db.collection(collection).get().then(function(querySnapshot) {
       y: y_list,
       type: 'scatter',
       mode: 'lines+markers',
-      hovertemplate: 'Average Rating: %{y}<extra></extra>'
+      hovertemplate: 'Average Rating: %{y}<extra></extra>',
+      connectgaps: true
     };
 
     var data = [trace1];
