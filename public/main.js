@@ -296,8 +296,7 @@ function aob_line_plot_month(selected_aob) {
         dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)].push([30-i]);
         dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)].push([]);
     }
-    // TODO: provide manipulated data list here
-    console.log(selected_aob);
+
     aob_list = []
     data_list.forEach((element) => {
         // if date is within last 31 days
@@ -321,14 +320,12 @@ function aob_line_plot_month(selected_aob) {
             }
         }
     })
-    console.log(dates_for_last_31_days_dict);
     // calculate average for each day
     for (var key in dates_for_last_31_days_dict) {
         value_array = [];
         for (var inner_key in dates_for_last_31_days_dict[key][1]) {
             value_array = value_array.concat(dates_for_last_31_days_dict[key][1][inner_key]);
         }
-        console.log(value_array);
         if (value_array.length > 0) {
             var count = 0;
             var sum = 0
@@ -431,12 +428,13 @@ function submitData() {
         today_rating: today_rating,
         week_rating: week_rating,
         month_rating: month_rating,
-        area_of_business: document.getElementById("survey_form").value,
+        area_of_business: document.getElementById("survey_aob_dropdown").value,
         date: `${Date()}`.substr(4,11)
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
-        document.getElementById("survey_form").value = "Optional";
+        document.getElementById("survey_aob_dropdown").value = "Professional Services";
+        document.getElementById("aob_list").value = "All";
         location.reload();
     })
     .catch(function(error) {
