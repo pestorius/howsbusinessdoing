@@ -1,5 +1,3 @@
-console.log("Hello World")
-
 // intializing firebase
 var firebaseConfig = {
             apiKey: "AIzaSyDVNjIbMmbypslaxmNyfL1L-JV4-F59_GI",
@@ -77,8 +75,6 @@ if (document.URL == "http://localhost:5000/") {
 }
 db.collection(collection).get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        //console.log(doc.id, " => ", doc.data());
         data_list.push(doc.data());
     });
     console.log(data_list);
@@ -184,7 +180,6 @@ db.collection(collection).get().then(function(querySnapshot) {
     for (var i = -6; i < 1; i++) {
         dates_for_this_week.push(`${getDateWithinWeek(new Date(), i)}`.substr(4,11));
     }
-    console.log(dates_for_this_week);
     data_list.forEach((element) => {
         if (dates_for_this_week.indexOf(element.date) > -1) {
             if (element.week_rating == 1) {
@@ -233,7 +228,6 @@ db.collection(collection).get().then(function(querySnapshot) {
     var date_last_month = new Date();
     date_last_month.setMonth(date_last_month.getMonth() - 1)
     date_last_month = `${date_last_month}`.substr(4,3) + `${date_last_month}`.substr(10,5)
-    console.log(date_last_month);
     data_list.forEach((element) => {
         if (element.date.substr(0,4) + element.date.substr(7,4) == date_last_month) {
             if (element.month_rating == 1) {
@@ -275,7 +269,21 @@ db.collection(collection).get().then(function(querySnapshot) {
 
     Plotly.newPlot('bar_plot_month', data, layout, config);
 
-    // line plot average
+    plotSelectedAob();
+
+});
+
+/*****FUNCTIONS*****/
+
+// draw line plot based on selected area of business
+function plotSelectedAob() {
+    selected_aob = document.getElementById("aob_list").value;
+    aob_line_plot_month(selected_aob);
+}
+
+// plot average ratings over a month.
+// Has the ability to show data for a specific area of business.
+function aob_line_plot_month(selected_aob) {
     dates_for_last_31_days_list = [];
     dates_for_last_31_days_dict = {};
     y_list = []
@@ -288,18 +296,39 @@ db.collection(collection).get().then(function(querySnapshot) {
         dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)].push([30-i]);
         dates_for_last_31_days_dict[`${new Date(new Date().setDate(today.getDate() - i))}`.substr(4,11)].push([]);
     }
-    console.log(dates_for_last_31_days_list);
-    console.log(dates_for_last_31_days_dict);
+    // TODO: provide manipulated data list here
+    console.log(selected_aob);
+    aob_list = []
     data_list.forEach((element) => {
+        // if date is within last 31 days
         if (dates_for_last_31_days_list.indexOf(element.date) > -1) {
-            console.log(element.date);
-            dates_for_last_31_days_dict[element.date][1].push(element.today_rating);
+            // if there are no ratings for the date yet, prepare it by assigning an empty dictionary
+            if (dates_for_last_31_days_dict[element.date][1].length == 0) {
+                dates_for_last_31_days_dict[element.date][1] = {};
+            }
+            // if the area of business is not in the dict, add it as a key
+            if (!(element.area_of_business in dates_for_last_31_days_dict[element.date][1])) {
+                dates_for_last_31_days_dict[element.date][1][element.area_of_business] = [];
+            }
+            // decide to show all data or data from specific areas of business
+            if (!(selected_aob == "All")) {
+                if (element.area_of_business == selected_aob){
+                    dates_for_last_31_days_dict[element.date][1][element.area_of_business].push(element.today_rating);
+                }
+            }
+            else {
+                dates_for_last_31_days_dict[element.date][1][element.area_of_business].push(element.today_rating);
+            }
         }
     })
     console.log(dates_for_last_31_days_dict);
     // calculate average for each day
     for (var key in dates_for_last_31_days_dict) {
-        value_array = dates_for_last_31_days_dict[key][1];
+        value_array = [];
+        for (var inner_key in dates_for_last_31_days_dict[key][1]) {
+            value_array = value_array.concat(dates_for_last_31_days_dict[key][1][inner_key]);
+        }
+        console.log(value_array);
         if (value_array.length > 0) {
             var count = 0;
             var sum = 0
@@ -310,7 +339,6 @@ db.collection(collection).get().then(function(querySnapshot) {
                 }
             })
             average = Math.round(sum/count * 10) / 10;
-            console.log(average);
             dates_for_last_31_days_dict[key][1] = average;
         }
     }
@@ -327,7 +355,6 @@ db.collection(collection).get().then(function(querySnapshot) {
             y_list[index] = null;
         }
     }
-    console.log(y_list)
     var trace1 = {
       x: x_list,
       y: y_list,
@@ -342,7 +369,7 @@ db.collection(collection).get().then(function(querySnapshot) {
     var layout = {
         title: 'Average Rating Over A Month',
         yaxis: {
-            range: [0, 5],
+            range: [0, 6],
             tickmode: 'linear',
             title: 'Rating',
         },
@@ -354,10 +381,8 @@ db.collection(collection).get().then(function(querySnapshot) {
 
     var config = {responsive: true};
 
-    Plotly.newPlot('line_plot_average', data, layout, config);
-});
-
-/*****FUNCTIONS*****/
+    Plotly.newPlot('line_plot_aob', data, layout, config);
+}
 
 // get a specific date relative to the current week
 function getDateWithinWeek(d, offset) {
